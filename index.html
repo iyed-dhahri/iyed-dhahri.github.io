@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ✏️ Replace every [bracketed] placeholder in this file with your own details -->
+<title>[Your Name] — Computer vision for disaster response</title>
+<meta name="description" content="[Your Name], PhD researcher in computer vision and remote sensing: building-level damage mapping from UAV, satellite and LiDAR data.">
+<meta property="og:title" content="[Your Name] — Reading the ground after disaster">
+<meta property="og:description" content="PhD researcher in computer vision and remote sensing for disaster response.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect x='0' y='0' width='12.5' height='12.5' rx='2' fill='%235B6E80'/%3E%3Crect x='15.5' y='0' width='12.5' height='12.5' rx='2' fill='%23F2C14E'/%3E%3Crect x='0' y='15.5' width='12.5' height='12.5' rx='2' fill='%23F2843A'/%3E%3Crect x='15.5' y='15.5' width='12.5' height='12.5' rx='2' fill='%23D9412F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ✏️ Change --accent to recolour the whole site (try #4FD1A5, #8EC5FF or #F2C14E) */
+    --accent:#F2843A;
+    --bg:#0D1013; --surface:#12171C; --chip:#1C232A;
+    --line:#222A32; --line2:#2C353F; --rule:#1E252C;
+    --text:#E9EDF0; --soft:#C9D2DA; --body:#B4BFC9; --dim:#A6B1BC; --muted:#8C98A5;
+    --sans:'Bricolage Grotesque', system-ui, sans-serif;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:#F2A46A} a:hover{color:#FFD2AE}
+  :focus-visible{outline:2px solid #fff;outline-offset:2px}
+  .wrap{max-width:1200px;margin:0 auto;padding-left:24px;padding-right:24px}
+  .mono{font-family:var(--mono)}
+  .label{font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--accent)}
+  .h2{margin:0;font-size:clamp(34px,4vw,52px);font-weight:700;letter-spacing:-.03em;line-height:1.05}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:12px;color:var(--soft)}
+  .tags span{padding:6px 10px;border:1px solid var(--line2);border-radius:6px}
+  .pill{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding:8px 12px;border-radius:999px;background:var(--chip);white-space:nowrap}
+
+  /* nav */
+  header{padding-top:24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px;letter-spacing:-.01em}
+  .logo{width:28px;height:28px;display:grid;grid-template-columns:1fr 1fr;gap:3px}
+  .logo i{border-radius:2px}
+  nav.main{display:flex;flex-wrap:wrap;gap:4px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+  nav.main a{color:var(--soft);text-decoration:none;padding:12px}
+  nav.main a:hover{color:#fff}
+  nav.main a.cta{color:var(--bg);background:var(--accent);padding:12px 16px;border-radius:999px;font-weight:500}
+
+  /* hero */
+  .hero{padding-top:72px;padding-bottom:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:56px;align-items:center}
+  .hero-text{display:flex;flex-direction:column;gap:28px}
+  .eyebrow{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+  h1{margin:0;font-size:clamp(44px,6vw,84px);line-height:.98;font-weight:800;letter-spacing:-.035em}
+  h1 span{color:var(--accent)}
+  .lede{margin:0;font-size:19px;line-height:1.55;color:var(--body);max-width:34em}
+  .btns{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;text-decoration:none;font-size:16px;font-weight:500}
+  .btn.solid{background:var(--text);color:var(--bg);font-weight:600}
+  .btn.ghost{border:1px solid var(--line2);color:var(--text)}
+  .btn.ghost:hover{border-color:var(--soft);color:#fff}
+
+  /* survey tile */
+  figure{margin:0;display:flex;flex-direction:column;gap:14px}
+  .controls{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;font-family:var(--mono);font-size:12px}
+  .seg-group{display:flex;gap:4px;padding:4px;border:1px solid var(--line2);border-radius:999px}
+  .seg{font:inherit;text-transform:uppercase;letter-spacing:.06em;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid transparent;cursor:pointer;background:transparent;color:var(--soft)}
+  .seg[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
+  .seg.height{min-height:44px;padding:0 16px;border-color:var(--line2)}
+  .seg.height[aria-pressed="true"]{background:var(--chip);color:var(--text);border-color:var(--accent)}
+  .map{border:1px solid var(--line);border-radius:16px;padding:22px 22px 22px 28px;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:8px;
+       background-color:#11161B;background-image:linear-gradient(#1A2128 1px,transparent 1px),linear-gradient(90deg,#1A2128 1px,transparent 1px);background-size:24px 24px}
+  .cell{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center}
+  .bldg{border-radius:2px;transition:background-color .5s ease,box-shadow .5s ease,transform .5s ease}
+  .lot{width:62%;height:62%;border:1px dashed var(--line2);border-radius:3px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--mono);font-size:12px;color:var(--soft)}
+  .legend span{display:inline-flex;align-items:center;gap:8px}
+  .legend b{font-weight:400;color:var(--muted)}
+  .sw{width:10px;height:10px;border-radius:2px}
+  .caption{font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.6}
+
+  /* ticker */
+  .ticker{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .ticker .wrap{padding-top:18px;padding-bottom:18px;display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .ticker i{font-style:normal;color:var(--accent)}
+
+  /* research */
+  .section{padding-top:96px;padding-bottom:32px;display:flex;flex-direction:column;gap:40px}
+  .section-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px}
+  .section-head > div{display:flex;flex-direction:column;gap:12px}
+  .section-head p{margin:0;max-width:28em;color:var(--dim);font-size:17px;line-height:1.55}
+  .cases{border-top:1px solid var(--line)}
+  .case{display:flex;flex-wrap:wrap;gap:20px 40px;padding:36px 0;border-bottom:1px solid var(--line)}
+  .case-no{flex:0 0 96px;font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em}
+  .case-body{flex:999 1 420px;min-width:0;display:flex;flex-direction:column;gap:14px}
+  .case h3{margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+  .case p{margin:0;color:var(--body);font-size:17px;line-height:1.6;max-width:40em}
+  .case-status{flex:1 0 200px;display:flex;justify-content:flex-end;align-items:flex-start}
+  @media (max-width:700px){.case-status{justify-content:flex-start}}
+
+  /* publications */
+  .pubs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+  .pubs li{display:flex;flex-wrap:wrap;gap:12px 32px;padding:24px;border-radius:14px;background:var(--surface)}
+  .pub-year{flex:0 0 64px;font-family:var(--mono);font-size:14px;color:var(--muted)}
+  .pub-main{flex:999 1 400px;min-width:0;display:flex;flex-direction:column;gap:6px}
+  .pub-title{font-size:20px;font-weight:600;line-height:1.35}
+  .pub-meta{color:var(--dim);font-size:15px}
+  .pub-links{display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:13px}
+  .pub-links a{padding:12px 14px;border:1px solid var(--line2);border-radius:8px;text-decoration:none;color:var(--text)}
+  .pub-links a:hover{border-color:var(--accent)}
+  .more{align-self:flex-start;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:12px 0}
+
+  /* thesis + teaching */
+  .duo{padding-top:80px;padding-bottom:80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:24px}
+  .panel{padding:36px;border-radius:18px;display:flex;flex-direction:column;gap:18px}
+  .panel.outline{border:1px solid var(--line)}
+  .panel.fill{background:var(--surface)}
+  .panel h2{margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+  .panel p{margin:0;color:var(--body);font-size:16px;line-height:1.6}
+  dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:15px}
+  dl div{display:flex;flex-direction:column;gap:4px}
+  dt{font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  dd{margin:0}
+
+  /* contact */
+  .contact{border-top:1px solid var(--rule)}
+  .contact .wrap{padding-top:96px;padding-bottom:48px;display:flex;flex-direction:column;gap:36px}
+  .big{margin:0;font-size:clamp(44px,7vw,104px);font-weight:800;letter-spacing:-.04em;line-height:.95}
+  .mail{align-self:flex-start;font-size:clamp(22px,3vw,34px);font-weight:500;color:var(--accent);text-decoration:none;border-bottom:2px solid var(--accent);padding-bottom:4px;word-break:break-all}
+  .mail:hover{color:#fff}
+  .profiles{display:flex;flex-wrap:wrap;gap:10px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+  .profiles a{padding:14px 18px;border:1px solid var(--line2);border-radius:999px;color:var(--text);text-decoration:none}
+  .profiles a:hover{border-color:var(--accent)}
+  footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:48px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bldg{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><i style="background:#5B6E80"></i><i style="background:#F2C14E"></i><i style="background:var(--accent)"></i><i style="background:#D9412F"></i></div>
+    <span>[Your Name]</span>
+  </div>
+  <nav class="main" aria-label="Main">
+    <a href="#research">Research</a>
+    <a href="#publications">Publications</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#contact" class="cta">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="wrap hero">
+    <div class="hero-text">
+      <div class="eyebrow">Dr. [Your Name] · Computer vision · Remote sensing</div>
+      <h1>Reading the ground <span>after disaster.</span></h1>
+      <p class="lede">I build deep-learning models that turn UAV, satellite and LiDAR data into building-level damage maps — and use them to help plan safer responses to floods.</p>
+      <div class="btns">
+        <a href="#research" class="btn solid">See the research
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+        <!-- ✏️ Upload your CV as cv.pdf next to this file, or change the link -->
+        <a href="cv.pdf" class="btn ghost">Download CV</a>
+      </div>
+    </div>
+
+    <figure>
+      <div class="controls">
+        <div class="seg-group" role="group" aria-label="Acquisition">
+          <button type="button" class="seg" id="btnPre" aria-pressed="false">Pre-event</button>
+          <button type="button" class="seg" id="btnPost" aria-pressed="true">Post-event</button>
+        </div>
+        <button type="button" class="seg height" id="btnHeight" aria-pressed="true">LiDAR height · <span id="heightLabel">On</span></button>
+      </div>
+      <div class="map" id="map" role="img" aria-label="Illustrative aerial tile of buildings coloured by damage class, extruded by height"></div>
+      <figcaption style="display:flex;flex-direction:column;gap:10px">
+        <div class="legend" id="legend"></div>
+        <div class="caption">FIG. 00 — Illustrative tile. Classes follow the xBD damage scale; extrusion stands for pre-event LiDAR height.</div>
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="wrap">
+      <span>UAV segmentation</span><i aria-hidden="true">/</i>
+      <span>Day–night domain translation</span><i aria-hidden="true">/</i>
+      <span>LiDAR fusion</span><i aria-hidden="true">/</i>
+      <span>Change detection</span><i aria-hidden="true">/</i>
+      <span>Flood evacuation</span>
+    </div>
+  </div>
+
+  <!-- RESEARCH -->
+  <section id="research" class="wrap section">
+    <div class="section-head">
+      <div>
+        <div class="label">§ 01 — RESEARCH</div>
+        <h2 class="h2">Four field cases</h2>
+      </div>
+      <p>One question runs through all of them: how much can a model tell us about a place in the hours after it has been hit?</p>
+    </div>
+
+    <div class="cases">
+      <article class="case">
+        <div class="case-no">CASE 01</div>
+        <div class="case-body">
+          <h3>Height-aware building damage assessment</h3>
+          <p>Does knowing how tall a building was before the event help a model judge what happened to it? I fuse pre-event LiDAR heights (USGS 3DEP) with xBD imagery inside a MambaBDA backbone to find out.</p>
+          <div class="tags"><span>LiDAR</span><span>xBD</span><span>State-space models</span><span>Multimodal fusion</span></div>
+        </div>
+        <div class="case-status"><span class="pill" style="color:#F2C14E">In preparation · Journal</span></div>
+      </article>
+
+      <article class="case">
+        <div class="case-no">CASE 02</div>
+        <div class="case-body">
+          <h3>II-DAMNet: seeing disaster at night</h3>
+          <p>Drones fly when they can, not when the light is good. II-DAMNet translates night-time UAV imagery into the day domain so segmentation models trained on daylight scenes keep working after dark.</p>
+          <div class="tags"><span>UAV</span><span>Domain translation</span><span>Semantic segmentation</span></div>
+        </div>
+        <div class="case-status"><span class="pill" style="background:var(--accent);color:var(--bg)">Published · IEEE AVSS</span></div>
+      </article>
+
+      <article class="case">
+        <div class="case-no">CASE 03</div>
+        <div class="case-body">
+          <h3>AnthropEco-Net: damage beyond buildings</h3>
+          <p>A multi-task network that segments ecological and human-made damage together, so forests, fields and waterways show up in the assessment alongside roofs and roads.</p>
+          <div class="tags"><span>Multi-task learning</span><span>Ecology</span><span>UAV</span></div>
+        </div>
+        <div class="case-status"><span class="pill" style="color:#F2C14E">Journal version · In progress</span></div>
+      </article>
+
+      <article class="case">
+        <div class="case-no">CASE 04</div>
+        <div class="case-body">
+          <h3>AIO-FLOOD: from maps to evacuation</h3>
+          <p>Coupling AI &amp; optimization to plan flood evacuations: damage and exposure estimates feed routing and shelter decisions, closing the loop between perception and action.</p>
+          <div class="tags"><span>Optimization</span><span>Floods</span><span>Decision support</span></div>
+        </div>
+        <div class="case-status"><span class="pill" style="color:#8EC5FF">Funding proposal · ANR JCJC</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications" class="wrap section" style="padding-top:80px;gap:32px">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="label">§ 02 — PUBLICATIONS</div>
+      <h2 class="h2">Selected papers</h2>
+    </div>
+    <ol class="pubs">
+      <li>
+        <span class="pub-year">[YEAR]</span>
+        <div class="pub-main">
+          <span class="pub-title">II-DAMNet: Day–night domain translation for UAV disaster image segmentation</span>
+          <span class="pub-meta">[Authors] · IEEE International Conference on Advanced Visual and Signal-Based Systems (AVSS)</span>
+        </div>
+        <div class="pub-links"><a href="#">PDF</a><a href="#">Code</a></div>
+      </li>
+      <li>
+        <span class="pub-year">[YEAR]</span>
+        <div class="pub-main">
+          <span class="pub-title">[Working title] Pre-event LiDAR height for building damage assessment</span>
+          <span class="pub-meta">[Authors] · In preparation</span>
+        </div>
+        <div class="pub-links"><a href="#">Preprint</a></div>
+      </li>
+      <li>
+        <span class="pub-year">[YEAR]</span>
+        <div class="pub-main">
+          <span class="pub-title">AnthropEco-Net: Multi-task segmentation of ecological and anthropogenic damage</span>
+          <span class="pub-meta">[Authors] · [Journal]</span>
+        </div>
+        <div class="pub-links"><a href="#">PDF</a></div>
+      </li>
+    </ol>
+    <a href="#" class="more">Full list on Google Scholar →</a>
+  </section>
+
+  <!-- THESIS + TEACHING -->
+  <section id="teaching" class="wrap duo">
+    <div class="panel outline">
+      <div class="label">§ 03 — THESIS</div>
+      <h2>[Thesis title]</h2>
+      <p>PhD in [Discipline], [University / Lab]. Supervised by [Supervisor(s)].</p>
+      <dl>
+        <div><dt>Defended</dt><dd>[Date]</dd></div>
+        <div><dt>Manuscript</dt><dd><a href="#">Read the thesis</a></dd></div>
+      </dl>
+    </div>
+    <div class="panel fill">
+      <div class="label">§ 04 — TEACHING</div>
+      <h2>C++ programming labs</h2>
+      <p>Lab sessions (TP) for [level] students at [University], from first pointers to object-oriented design. I write my own step-by-step explanations for each exercise.</p>
+      <div class="tags"><span>[Years]</span><span>[Hours] h</span><span>[Course name]</span></div>
+    </div>
+  </section>
+</main>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="label">§ 05 — CONTACT</div>
+    <h2 class="big">Open to [postdoc / research scientist] roles from [Year].</h2>
+    <a class="mail" href="mailto:[you@domain]">[you@domain]</a>
+    <nav class="profiles" aria-label="Profiles">
+      <a href="#">Google Scholar</a>
+      <a href="#">GitHub</a>
+      <a href="#">ORCID</a>
+      <a href="#">LinkedIn</a>
+    </nav>
+    <footer>
+      <span>© <span id="year">2026</span> [Your Name]</span>
+      <span>Built from survey tiles and late nights.</span>
+    </footer>
+  </div>
+</section>
+
+<script>
+(function () {
+  var state = { post: true, height: true };
+  var pal = [
+    { label: 'No damage', fill: '#5B6E80', side: '#2E3944' },
+    { label: 'Minor',     fill: '#F2C14E', side: '#8F6E1C' },
+    { label: 'Major',     fill: '#F2843A', side: '#8E4718' },
+    { label: 'Destroyed', fill: '#D9412F', side: '#741D14' }
+  ];
+  var pre = { fill: '#6E8295', side: '#34414D' };
+
+  // Build a fixed, reproducible tile (same layout on every visit)
+  var seed = 20261105;
+  function rnd() { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }
+  var tiles = [];
+  for (var r = 0; r < 7; r++) {
+    for (var c = 0; c < 10; c++) {
+      var empty = rnd() < 0.14;
+      var w = 46 + Math.round(rnd() * 42);
+      var h = 46 + Math.round(rnd() * 42);
+      var lv = 1 + Math.floor(rnd() * 6);
+      var n = rnd();
+      var d = Math.sqrt((c - 2.5) * (c - 2.5) + (r - 1.5) * (r - 1.5) * 1.4);
+      var cls;
+      if (d < 2.2) cls = n < 0.6 ? 3 : 2;
+      else if (d < 4) cls = n < 0.3 ? 3 : (n < 0.72 ? 2 : 1);
+      else if (d < 6) cls = n < 0.18 ? 2 : (n < 0.58 ? 1 : 0);
+      else cls = n < 0.14 ? 1 : 0;
+      tiles.push({ empty: empty, w: w, h: h, lv: lv, cls: cls });
+    }
+  }
+
+  var map = document.getElementById('map');
+  var legend = document.getElementById('legend');
+  var blds = [];
+  tiles.forEach(function (t) {
+    var cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.setAttribute('aria-hidden', 'true');
+    var b = document.createElement('div');
+    if (t.empty) { b.className = 'lot'; }
+    else {
+      b.className = 'bldg';
+      b.style.width = t.w + '%';
+      b.style.height = t.h + '%';
+      blds.push({ el: b, t: t });
+    }
+    cell.appendChild(b);
+    map.appendChild(cell);
+  });
+
+  function render() {
+    var counts = [0, 0, 0, 0];
+    blds.forEach(function (o) {
+      var t = o.t;
+      counts[t.cls]++;
+      var col = state.post ? pal[t.cls] : pre;
+      var off = state.height ? Math.round(t.lv * 1.5) : 0;
+      var sh = [];
+      for (var i = 1; i <= off; i++) sh.push(i + 'px ' + i + 'px 0 ' + col.side);
+      o.el.style.backgroundColor = col.fill;
+      o.el.style.boxShadow = sh.length ? sh.join(',') : 'none';
+      o.el.style.transform = 'translate(' + (-off) + 'px,' + (-off) + 'px)';
+    });
+    var items = state.post
+      ? pal.map(function (p, i) { return { label: p.label, color: p.fill, count: counts[i] }; })
+      : [{ label: 'Building · pre-event', color: pre.fill, count: blds.length }];
+    legend.innerHTML = items.map(function (l) {
+      return '<span><span class="sw" aria-hidden="true" style="background:' + l.color + '"></span>' + l.label + ' <b>' + l.count + '</b></span>';
+    }).join('');
+    document.getElementById('btnPre').setAttribute('aria-pressed', String(!state.post));
+    document.getElementById('btnPost').setAttribute('aria-pressed', String(state.post));
+    document.getElementById('btnHeight').setAttribute('aria-pressed', String(state.height));
+    document.getElementById('heightLabel').textContent = state.height ? 'On' : 'Off';
+  }
+
+  document.getElementById('btnPre').addEventListener('click', function () { state.post = false; render(); });
+  document.getElementById('btnPost').addEventListener('click', function () { state.post = true; render(); });
+  document.getElementById('btnHeight').addEventListener('click', function () { state.height = !state.height; render(); });
+  document.getElementById('year').textContent = new Date().getFullYear();
+  render();
+})();
+</script>
+</body>
+</html>
