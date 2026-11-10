@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- ✏️ Replace every remaining [bracketed] placeholder in this file with your own details -->
 <title>Iyed Dhahri — Computer vision for disaster response</title>
-<meta name="description" content="Iyed Dhahri, PhD researcher in computer vision and remote sensing: building-level damage mapping from UAV, satellite and LiDAR data.">
+<meta name="description" content="Iyed Dhahri, PhD researcher at IRIMAS, Université de Haute-Alsace: deep learning for post-disaster damage assessment from UAV imagery.">
 <meta property="og:title" content="Iyed Dhahri — Reading the ground after disaster">
-<meta property="og:description" content="PhD researcher in computer vision and remote sensing for disaster response.">
+<meta property="og:description" content="PhD researcher in computer vision for disaster response: UAV damage segmentation, flood mapping, compact networks.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#F4F5F2">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect x='0' y='0' width='12.5' height='12.5' rx='2' fill='%237D8C99'/%3E%3Crect x='15.5' y='0' width='12.5' height='12.5' rx='2' fill='%23E9B52F'/%3E%3Crect x='0' y='15.5' width='12.5' height='12.5' rx='2' fill='%23E8742A'/%3E%3Crect x='15.5' y='15.5' width='12.5' height='12.5' rx='2' fill='%23C8372A'/%3E%3C/svg%3E">
@@ -35,7 +35,6 @@
   .tags{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:12px;color:var(--soft)}
   .tags span{padding:6px 10px;border:1px solid var(--line2);border-radius:6px;background:var(--surface)}
   .pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding:8px 12px;border-radius:999px;background:var(--chip);color:var(--soft);white-space:nowrap}
-  .pill .dot{width:8px;height:8px;border-radius:50%}
   .pill.done{background:var(--accent);color:#fff}
 
   /* nav */
@@ -50,10 +49,10 @@
   nav.main a.cta:hover{background:var(--accent)}
 
   /* hero */
-  .hero{padding-top:72px;padding-bottom:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:56px;align-items:center}
+  .hero{padding-top:88px;padding-bottom:72px}
   .hero-text{display:flex;flex-direction:column;gap:28px}
   .eyebrow{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-  h1{margin:0;font-size:clamp(44px,6vw,84px);line-height:.98;font-weight:800;letter-spacing:-.035em}
+  h1{margin:0;font-size:clamp(48px,8vw,112px);line-height:.98;font-weight:800;letter-spacing:-.035em}
   h1 span{color:var(--accent)}
   .lede{margin:0;font-size:19px;line-height:1.55;color:var(--body);max-width:34em}
   .btns{display:flex;flex-wrap:wrap;gap:12px}
@@ -63,19 +62,14 @@
   .btn.ghost{border:1px solid var(--line2);color:var(--text);background:var(--surface)}
   .btn.ghost:hover{border-color:var(--text);color:var(--text)}
 
-  /* survey tile */
+  /* shared figure controls */
   figure{margin:0;display:flex;flex-direction:column;gap:14px}
-  .controls{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;font-family:var(--mono);font-size:12px}
+  .controls,.fig-controls{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;font-family:var(--mono);font-size:12px}
   .seg-group{display:flex;gap:4px;padding:4px;border:1px solid var(--line2);border-radius:999px;background:var(--surface)}
   .seg{font:inherit;text-transform:uppercase;letter-spacing:.06em;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid transparent;cursor:pointer;background:transparent;color:var(--soft)}
   .seg[aria-pressed="true"]{background:var(--text);color:#fff}
-  .seg.height{min-height:44px;padding:0 16px;border-color:var(--line2);background:var(--surface)}
-  .seg.height[aria-pressed="true"]{background:var(--surface);color:var(--text);border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
-  .map{border:1px solid var(--line);border-radius:16px;padding:22px 22px 22px 28px;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:8px;
-       background-color:#E9ECE7;background-image:linear-gradient(#DDE1DB 1px,transparent 1px),linear-gradient(90deg,#DDE1DB 1px,transparent 1px);background-size:24px 24px}
-  .cell{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center}
-  .bldg{border-radius:2px;transition:background-color .5s ease,box-shadow .5s ease,transform .5s ease}
-  .lot{width:62%;height:62%;border:1px dashed #B3BBB3;border-radius:3px}
+  .seg.toggle{min-height:44px;padding:0 16px;border-color:var(--line2);background:var(--surface)}
+  .seg.toggle[aria-pressed="true"]{background:var(--text);color:#fff;border-color:var(--text)}
   .legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--mono);font-size:12px;color:var(--soft)}
   .legend span{display:inline-flex;align-items:center;gap:8px}
   .legend b{font-weight:400;color:var(--muted)}
@@ -84,7 +78,7 @@
 
   /* ticker */
   .ticker{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--surface)}
-  .ticker .wrap{padding-top:18px;padding-bottom:18px;display:flex;flex-wrap:wrap;gap:10px 28px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .ticker .wrap{padding-top:18px;padding-bottom:18px;display:flex;flex-wrap:wrap;gap:10px 18px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
   .ticker i{font-style:normal;color:var(--accent)}
 
   /* research */
@@ -93,13 +87,53 @@
   .section-head > div{display:flex;flex-direction:column;gap:12px}
   .section-head p{margin:0;max-width:28em;color:var(--dim);font-size:17px;line-height:1.55}
   .cases{border-top:1px solid var(--line2)}
-  .case{display:flex;flex-wrap:wrap;gap:20px 40px;padding:36px 0;border-bottom:1px solid var(--line2)}
-  .case-no{flex:0 0 96px;font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em}
-  .case-body{flex:999 1 420px;min-width:0;display:flex;flex-direction:column;gap:14px}
+  .case{display:grid;grid-template-columns:88px minmax(0,1fr) minmax(0,480px);gap:24px 40px;padding:48px 0;border-bottom:1px solid var(--line2);align-items:start}
+  .case-no{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em;padding-top:8px}
+  .case-body{min-width:0;display:flex;flex-direction:column;gap:16px}
+  .case-body .pill{align-self:flex-start}
   .case h3{margin:0;font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
   .case p{margin:0;color:var(--body);font-size:17px;line-height:1.6;max-width:40em}
-  .case-status{flex:1 0 200px;display:flex;justify-content:flex-end;align-items:flex-start}
-  @media (max-width:700px){.case-status{justify-content:flex-start}}
+  @media (max-width:1020px){.case{grid-template-columns:minmax(0,1fr);gap:18px}.case-no{padding-top:0}}
+
+  /* case illustrations (shared) */
+  .fig{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;gap:12px}
+  .range-row{display:flex;align-items:center;gap:12px;min-height:44px;font-family:var(--mono);font-size:12px;color:var(--soft);text-transform:uppercase;letter-spacing:.06em}
+  .range-row input{flex:1;min-width:0;accent-color:var(--accent);height:28px}
+  .range-row b{font-weight:500;color:var(--text)}
+  .kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .kpis.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpi{background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+  .kpi strong{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+  .kpi span{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.45}
+
+  /* fig · day–night */
+  .dn{position:relative;border-radius:12px;overflow:hidden;cursor:ew-resize;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+  .dn-layer{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px;padding:12px}
+  .dn-night{position:relative;background:#0E151E}
+  .dn-night::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1.2px);background-size:5px 5px;pointer-events:none}
+  .dn-day{position:absolute;inset:0;background:#EEF1EC}
+  .dn-cell{aspect-ratio:1/1;border-radius:2px}
+  .dn-handle{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:#fff;box-shadow:0 0 0 1px rgba(20,24,28,.25);pointer-events:none}
+  .dn-handle::after{content:"";position:absolute;top:50%;left:50%;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+  .dn-tag{position:absolute;top:10px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:4px 8px;border-radius:999px;pointer-events:none}
+  .dn-tag.l{left:10px;background:#fff;color:var(--text)}
+  .dn-tag.r{right:10px;background:rgba(0,0,0,.6);color:#fff}
+
+  /* fig · dual-stream fusion */
+  .hm{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px;padding:12px;border-radius:12px;background:#EEF1EC}
+  .hm-cell{aspect-ratio:1/1;border-radius:2px;display:flex;align-items:center;justify-content:center;transition:background-color .45s ease}
+  .hm-s{border-radius:2px;transition:background-color .45s ease}
+
+  /* fig · evolutionary search */
+  .evo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .ind{position:relative;background:#EEF1EC;border-radius:10px;padding:10px 6px 14px;height:96px;display:flex;justify-content:center;align-items:flex-start;gap:3px;border:2px solid transparent;transition:border-color .3s ease}
+  .ind.best{border-color:var(--accent)}
+  .ind i{display:block;width:7px;border-radius:2px;transition:height .45s ease,margin-top .45s ease,background-color .45s ease}
+  .ind .fit{position:absolute;left:8px;right:8px;bottom:6px;height:3px;border-radius:2px;background:#DCE0DA;overflow:hidden}
+  .ind .fit b{display:block;height:100%;background:var(--accent);transition:width .45s ease}
+  .ind .tag{position:absolute;top:-9px;right:6px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;background:var(--accent);color:#fff;padding:2px 6px;border-radius:999px}
+  .evo-stats{font-family:var(--mono);font-size:12px;color:var(--soft)}
+  .evo-stats b{font-weight:500;color:var(--text)}
 
   /* publications */
   .pubs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
@@ -107,7 +141,9 @@
   .pub-year{flex:0 0 64px;font-family:var(--mono);font-size:14px;color:var(--muted)}
   .pub-main{flex:999 1 400px;min-width:0;display:flex;flex-direction:column;gap:6px}
   .pub-title{font-size:20px;font-weight:600;line-height:1.35}
-  .pub-meta{color:var(--dim);font-size:15px}
+  .pub-meta{color:var(--dim);font-size:15px;line-height:1.5}
+  .pub-meta strong{color:var(--text);font-weight:600}
+  .pub-venue{font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
   .pub-links{display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:13px}
   .pub-links a{padding:12px 14px;border:1px solid var(--line2);border-radius:8px;text-decoration:none;color:var(--text)}
   .pub-links a:hover{border-color:var(--accent);color:var(--accent)}
@@ -137,7 +173,7 @@
   .profiles a:hover{border-color:#F2A46A;color:#F2A46A}
   footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:48px;border-top:1px solid #2B3238;font-family:var(--mono);font-size:12px;color:#A3ADB7}
 
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bldg{transition:none}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hm-cell,.hm-s,.ind i,.ind .fit b{transition:none}}
 </style>
 </head>
 <body>
@@ -159,9 +195,9 @@
   <!-- HERO -->
   <section class="wrap hero">
     <div class="hero-text">
-      <div class="eyebrow">Dr. Iyed Dhahri · Computer vision · Remote sensing</div>
-      <h1>Reading the ground <span>after disaster.</span></h1>
-      <p class="lede">I build deep-learning models that turn UAV, satellite and LiDAR data into building-level damage maps — and use them to help plan safer responses to floods.</p>
+      <div class="eyebrow">Dr. Iyed Dhahri · Computer vision · Disaster response</div>
+      <h1>Reading the ground<br> <span>after disaster.</span></h1>
+      <p class="lede">I build deep-learning models that read drone imagery in the hours after a disaster — damaged buildings, blocked roads, flooded ground — by day or night, and light enough to run where they are needed.</p>
       <div class="btns">
         <a href="#research" class="btn solid">See the research
           <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
@@ -171,20 +207,6 @@
       </div>
     </div>
 
-    <figure>
-      <div class="controls">
-        <div class="seg-group" role="group" aria-label="Acquisition">
-          <button type="button" class="seg" id="btnPre" aria-pressed="false">Pre-event</button>
-          <button type="button" class="seg" id="btnPost" aria-pressed="true">Post-event</button>
-        </div>
-        <button type="button" class="seg height" id="btnHeight" aria-pressed="true">LiDAR height · <span id="heightLabel">On</span></button>
-      </div>
-      <div class="map" id="map" role="img" aria-label="Illustrative aerial tile of buildings coloured by damage class, extruded by height"></div>
-      <figcaption style="display:flex;flex-direction:column;gap:10px">
-        <div class="legend" id="legend"></div>
-        <div class="caption">FIG. 00 — Illustrative tile. Classes follow the xBD damage scale; extrusion stands for pre-event LiDAR height.</div>
-      </figcaption>
-    </figure>
   </section>
 
   <!-- TICKER -->
@@ -192,9 +214,9 @@
     <div class="wrap">
       <span>UAV segmentation</span><i aria-hidden="true">/</i>
       <span>Day–night domain translation</span><i aria-hidden="true">/</i>
-      <span>LiDAR fusion</span><i aria-hidden="true">/</i>
-      <span>Change detection</span><i aria-hidden="true">/</i>
-      <span>Flood evacuation</span>
+      <span>Flood mapping</span><i aria-hidden="true">/</i>
+      <span>Neural architecture search</span><i aria-hidden="true">/</i>
+      <span>Genetic algorithms</span>
     </div>
   </div>
 
@@ -203,50 +225,98 @@
     <div class="section-head">
       <div>
         <div class="label">§ 01 — RESEARCH</div>
-        <h2 class="h2">Four field cases</h2>
+        <h2 class="h2">Three field cases</h2>
       </div>
       <p>One question runs through all of them: how much can a model tell us about a place in the hours after it has been hit?</p>
     </div>
 
     <div class="cases">
+      <!-- CASE 01 · II-DAMNet (AVSS) -->
       <article class="case">
         <div class="case-no">CASE 01</div>
         <div class="case-body">
-          <h3>Height-aware building damage assessment</h3>
-          <p>Does knowing how tall a building was before the event help a model judge what happened to it? I fuse pre-event LiDAR heights (USGS 3DEP) with xBD imagery inside a MambaBDA backbone to find out.</p>
-          <div class="tags"><span>LiDAR</span><span>xBD</span><span>State-space models</span><span>Multimodal fusion</span></div>
-        </div>
-        <div class="case-status"><span class="pill"><span class="dot" style="background:#E9B52F"></span>In preparation · Journal</span></div>
-      </article>
-
-      <article class="case">
-        <div class="case-no">CASE 02</div>
-        <div class="case-body">
+          <span class="pill done">Published · IEEE AVSS 2026</span>
           <h3>II-DAMNet: seeing disaster at night</h3>
           <p>Drones fly when they can, not when the light is good. II-DAMNet translates night-time UAV imagery into the day domain so segmentation models trained on daylight scenes keep working after dark.</p>
           <div class="tags"><span>UAV</span><span>Domain translation</span><span>Semantic segmentation</span></div>
         </div>
-        <div class="case-status"><span class="pill done">Published · IEEE AVSS</span></div>
+        <figure class="fig">
+          <div class="dn" id="dn" role="img" aria-label="Night UAV tile on the right, its day-translated segmentation on the left, split by a draggable handle">
+            <div class="dn-layer dn-night" id="dnNight"></div>
+            <div class="dn-layer dn-day" id="dnDay"></div>
+            <div class="dn-handle" id="dnHandle"></div>
+            <span class="dn-tag l">Day · segmented</span>
+            <span class="dn-tag r">Night · input</span>
+          </div>
+          <div class="range-row">
+            <span aria-hidden="true">Day</span>
+            <input type="range" id="dnRange" min="0" max="100" value="55" aria-label="Move the split between day-translated output and night input">
+            <span aria-hidden="true">Night</span>
+          </div>
+          <figcaption style="display:flex;flex-direction:column;gap:10px">
+            <div class="legend" id="lgDn"></div>
+            <div class="caption">FIG. 01 — Drag across the tile: the night input is hard to read; the translated view can be segmented. Illustrative.</div>
+          </figcaption>
+        </figure>
       </article>
 
+      <!-- CASE 02 · HMDAB-Net (AI4Nature @ AVSS) -->
+      <article class="case">
+        <div class="case-no">CASE 02</div>
+        <div class="case-body">
+          <span class="pill done">Published · AI4Nature @ AVSS 2026</span>
+          <h3>HMDAB-Net: water and wreckage in one map</h3>
+          <p>Floods and storms make up nearly three quarters of recent disasters, yet most models see either the water or the damage. HMDAB-Net runs two specialised streams — a U-Net for flood extent and a GA-optimised PSPNet for damaged buildings and blocked roads — then cleans and merges their masks with a priority-based late-fusion rule.</p>
+          <div class="tags"><span>Flood segmentation</span><span>Late fusion</span><span>RescueNet</span><span>FAS</span></div>
+        </div>
+        <figure class="fig" id="figHm">
+          <div class="fig-controls">
+            <div class="seg-group" role="group" aria-label="Stream">
+              <button type="button" class="seg" data-v="flood" aria-pressed="false">Flood</button>
+              <button type="button" class="seg" data-v="damage" aria-pressed="false">Damage</button>
+              <button type="button" class="seg" data-v="fused" aria-pressed="true">Fused</button>
+            </div>
+          </div>
+          <div class="hm" id="hm" role="img" aria-label="Scene with flood water, intact and damaged buildings, roads and blocked roads, shown per stream or fused"></div>
+          <div class="kpis four">
+            <div class="kpi"><strong>79.67%</strong><span>Flood IoU · FAS</span></div>
+            <div class="kpi"><strong>83.32%</strong><span>Intact buildings · RescueNet</span></div>
+            <div class="kpi"><strong>86.11%</strong><span>Damaged buildings · RescueNet</span></div>
+            <div class="kpi"><strong>60.73%</strong><span>Blocked roads · RescueNet</span></div>
+          </div>
+          <figcaption style="display:flex;flex-direction:column;gap:10px">
+            <div class="legend" id="lgHm"></div>
+            <div class="caption">FIG. 02 — Two streams, one map. Scene is illustrative; IoU scores are from the paper, each on its own test set.</div>
+          </figcaption>
+        </figure>
+      </article>
+
+      <!-- CASE 03 · EDCNet (EA 2026) -->
       <article class="case">
         <div class="case-no">CASE 03</div>
         <div class="case-body">
-          <h3>AnthropEco-Net: damage beyond buildings</h3>
-          <p>A multi-task network that segments ecological and human-made damage together, so forests, fields and waterways show up in the assessment alongside roofs and roads.</p>
-          <div class="tags"><span>Multi-task learning</span><span>Ecology</span><span>UAV</span></div>
+          <span class="pill done">Published · Artificial Evolution (EA 2026)</span>
+          <h3>EDCNet: evolving networks small enough to fly</h3>
+          <p>Damage maps are needed on the drone, not in a data centre. A genetic algorithm searches for compact U-shaped encoder–decoders under strict parameter and FLOP budgets. The evolved EDCNet stays within about five mIoU points of PSPNet on rescue-critical classes — with 13× fewer parameters and roughly three times the speed.</p>
+          <div class="tags"><span>Neural architecture search</span><span>Genetic algorithms</span><span>Lightweight models</span><span>RescueNet</span></div>
         </div>
-        <div class="case-status"><span class="pill"><span class="dot" style="background:#E9B52F"></span>Journal version · In progress</span></div>
-      </article>
-
-      <article class="case">
-        <div class="case-no">CASE 04</div>
-        <div class="case-body">
-          <h3>AIO-FLOOD: from maps to evacuation</h3>
-          <p>Coupling AI &amp; optimization to plan flood evacuations: damage and exposure estimates feed routing and shelter decisions, closing the loop between perception and action.</p>
-          <div class="tags"><span>Optimization</span><span>Floods</span><span>Decision support</span></div>
-        </div>
-        <div class="case-status"><span class="pill"><span class="dot" style="background:#2F6FDB"></span>Funding proposal · ANR JCJC</span></div>
+        <figure class="fig">
+          <div class="fig-controls">
+            <div class="evo-stats" aria-live="polite">Generation <b id="evGen">1</b> / 14</div>
+            <button type="button" class="seg toggle" id="evPlay" aria-pressed="false">Play</button>
+          </div>
+          <div class="evo" id="evo" role="img" aria-label="A population of twelve U-shaped networks converging over generations of a genetic search; the best individual is outlined"></div>
+          <label class="range-row" for="evRange">
+            <span>Gen</span>
+            <input type="range" id="evRange" min="1" max="14" step="1" value="1">
+          </label>
+          <div class="kpis">
+            <div class="kpi"><strong>3.72M</strong><span>Parameters · 13× fewer than PSPNet</span></div>
+            <div class="kpi"><strong>22.6 FPS</strong><span>vs 7.4 for PSPNet · 713×713</span></div>
+            <div class="kpi"><strong>62.4%</strong><span>Critical-class mIoU · PSPNet 67.5%</span></div>
+          </div>
+          <div class="caption">FIG. 03 — Each card is one network: encoder down, decoder up, bar height = width. Fitter networks are darker; the best is outlined. Search is illustrative; results are from the paper.</div>
+        </figure>
       </article>
     </div>
   </section>
@@ -257,30 +327,34 @@
       <div class="label">§ 02 — PUBLICATIONS</div>
       <h2 class="h2">Selected papers</h2>
     </div>
+    <!-- ✏️ PDF links point to a papers/ folder: upload the PDFs there if your publishers allow it, or link to the DOI instead -->
     <ol class="pubs">
       <li>
-        <span class="pub-year">[YEAR]</span>
+        <span class="pub-year">2026</span>
         <div class="pub-main">
-          <span class="pub-title">II-DAMNet: Day–night domain translation for UAV disaster image segmentation</span>
-          <span class="pub-meta">I. Dhahri, [co-authors] · IEEE International Conference on Advanced Visual and Signal-Based Systems (AVSS)</span>
+          <span class="pub-title">Evolutionary Design of Compact Networks for Rescue-Critical Post-Disaster Damage Segmentation</span>
+          <span class="pub-meta"><strong>I. Dhahri</strong>, A. Azerine, M. Golabi, K. Hammoudi, L. Idoumghar</span>
+          <span class="pub-venue">Artificial Evolution (EA 2026) · Nice, France</span>
         </div>
-        <div class="pub-links"><a href="#">PDF</a><a href="#">Code</a></div>
+        <div class="pub-links"><a href="papers/edcnet-ea2026.pdf">PDF</a></div>
       </li>
       <li>
-        <span class="pub-year">[YEAR]</span>
+        <span class="pub-year">2026</span>
         <div class="pub-main">
-          <span class="pub-title">[Working title] Pre-event LiDAR height for building damage assessment</span>
-          <span class="pub-meta">I. Dhahri, [co-authors] · In preparation</span>
+          <span class="pub-title">HMDAB-Net: A Dual-Stream Late-Fusion Framework for Flood and Structural Damage Segmentation in Hydro-Meteorological Disaster Imagery</span>
+          <span class="pub-meta"><strong>I. Dhahri</strong>, M. Golabi, K. Hammoudi, L. Idoumghar</span>
+          <span class="pub-venue">AI4Nature Workshop · IEEE AVSS 2026</span>
         </div>
-        <div class="pub-links"><a href="#">Preprint</a></div>
+        <div class="pub-links"><a href="papers/hmdabnet-ai4nature2026.pdf">PDF</a></div>
       </li>
       <li>
-        <span class="pub-year">[YEAR]</span>
+        <span class="pub-year">2026</span>
         <div class="pub-main">
-          <span class="pub-title">AnthropEco-Net: Multi-task segmentation of ecological and anthropogenic damage</span>
-          <span class="pub-meta">I. Dhahri, [co-authors] · [Journal]</span>
+          <span class="pub-title">II-DAMNet: [full title]</span>
+          <span class="pub-meta"><strong>I. Dhahri</strong>, [co-authors]</span>
+          <span class="pub-venue">IEEE International Conference on Advanced Visual and Signal-Based Systems (AVSS 2026)</span>
         </div>
-        <div class="pub-links"><a href="#">PDF</a></div>
+        <div class="pub-links"><a href="papers/ii-damnet-avss2026.pdf">PDF</a></div>
       </li>
     </ol>
     <a href="#" class="more">Full list on Google Scholar →</a>
@@ -291,7 +365,7 @@
     <div class="panel outline">
       <div class="label">§ 03 — THESIS</div>
       <h2>[Thesis title]</h2>
-      <p>PhD in [Discipline], [University / Lab]. Supervised by [Supervisor(s)].</p>
+      <p>PhD in [Discipline], IRIMAS, Université de Haute-Alsace, Mulhouse. Supervised by [Supervisor(s)].</p>
       <dl>
         <div><dt>Defended</dt><dd>[Date]</dd></div>
         <div><dt>Manuscript</dt><dd><a href="#">Read the thesis</a></dd></div>
@@ -299,9 +373,9 @@
     </div>
     <div class="panel fill">
       <div class="label">§ 04 — TEACHING</div>
-      <h2>C++ programming labs</h2>
-      <p>Lab sessions (TP) for [level] students at [University], from first pointers to object-oriented design. I write my own step-by-step explanations for each exercise.</p>
-      <div class="tags"><span>[Years]</span><span>[Hours] h</span><span>[Course name]</span></div>
+      <h2>Programming labs · C++ &amp; Python</h2>
+      <p>Lab sessions (TP) for first-year students (L1) at Université de Haute-Alsace, in C++ and in Python. I write my own step-by-step explanations for each exercise.</p>
+      <div class="tags"><span>[Years]</span><span>[Hours] h</span><span>L1</span></div>
     </div>
   </section>
 </main>
@@ -325,87 +399,182 @@
   </div>
 </section>
 
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+<!-- Case illustrations -->
 <script>
 (function () {
-  var state = { post: true, height: true };
-  var pal = [
-    { label: 'No damage', fill: '#7D8C99', side: '#4F5C67' },
-    { label: 'Minor',     fill: '#E9B52F', side: '#9A7413' },
-    { label: 'Major',     fill: '#E8742A', side: '#9A4512' },
-    { label: 'Destroyed', fill: '#C8372A', side: '#7A1D14' }
-  ];
-  var pre = { fill: '#95A3AE', side: '#5E6C78' };
-
-  // Build a fixed, reproducible tile (same layout on every visit)
-  var seed = 20261105;
-  function rnd() { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }
-  var tiles = [];
-  for (var r = 0; r < 7; r++) {
-    for (var c = 0; c < 10; c++) {
-      var empty = rnd() < 0.14;
-      var w = 46 + Math.round(rnd() * 42);
-      var h = 46 + Math.round(rnd() * 42);
-      var lv = 1 + Math.floor(rnd() * 6);
-      var n = rnd();
-      var d = Math.sqrt((c - 2.5) * (c - 2.5) + (r - 1.5) * (r - 1.5) * 1.4);
-      var cls;
-      if (d < 2.2) cls = n < 0.6 ? 3 : 2;
-      else if (d < 4) cls = n < 0.3 ? 3 : (n < 0.72 ? 2 : 1);
-      else if (d < 6) cls = n < 0.18 ? 2 : (n < 0.58 ? 1 : 0);
-      else cls = n < 0.14 ? 1 : 0;
-      tiles.push({ empty: empty, w: w, h: h, lv: lv, cls: cls });
-    }
-  }
-
-  var map = document.getElementById('map');
-  var legend = document.getElementById('legend');
-  var blds = [];
-  tiles.forEach(function (t) {
-    var cell = document.createElement('div');
-    cell.className = 'cell';
-    cell.setAttribute('aria-hidden', 'true');
-    var b = document.createElement('div');
-    if (t.empty) { b.className = 'lot'; }
-    else {
-      b.className = 'bldg';
-      b.style.width = t.w + '%';
-      b.style.height = t.h + '%';
-      blds.push({ el: b, t: t });
-    }
-    cell.appendChild(b);
-    map.appendChild(cell);
-  });
-
-  function render() {
-    var counts = [0, 0, 0, 0];
-    blds.forEach(function (o) {
-      var t = o.t;
-      counts[t.cls]++;
-      var col = state.post ? pal[t.cls] : pre;
-      var off = state.height ? Math.round(t.lv * 1.5) : 0;
-      var sh = [];
-      for (var i = 1; i <= off; i++) sh.push(i + 'px ' + i + 'px 0 ' + col.side);
-      o.el.style.backgroundColor = col.fill;
-      o.el.style.boxShadow = sh.length ? sh.join(',') : 'none';
-      o.el.style.transform = 'translate(' + (-off) + 'px,' + (-off) + 'px)';
-    });
-    var items = state.post
-      ? pal.map(function (p, i) { return { label: p.label, color: p.fill, count: counts[i] }; })
-      : [{ label: 'Building · pre-event', color: pre.fill, count: blds.length }];
-    legend.innerHTML = items.map(function (l) {
-      return '<span><span class="sw" aria-hidden="true" style="background:' + l.color + '"></span>' + l.label + ' <b>' + l.count + '</b></span>';
+  function rng(seed) { return function () { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }; }
+  function legendHTML(items) {
+    return items.map(function (l) {
+      return '<span><span class="sw" aria-hidden="true" style="background:' + l.color + (l.round ? ';border-radius:50%' : '') + '"></span>' +
+        l.label + (l.count !== undefined ? ' <b>' + l.count + '</b>' : '') + '</span>';
     }).join('');
-    document.getElementById('btnPre').setAttribute('aria-pressed', String(!state.post));
-    document.getElementById('btnPost').setAttribute('aria-pressed', String(state.post));
-    document.getElementById('btnHeight').setAttribute('aria-pressed', String(state.height));
-    document.getElementById('heightLabel').textContent = state.height ? 'On' : 'Off';
   }
+  function mix(a, b, t) {
+    var pa = parseInt(a.replace('#', ''), 16), pb = parseInt(b.replace('#', ''), 16);
+    function ch(s) { return Math.round(((pa >> s) & 255) * (1 - t) + ((pb >> s) & 255) * t); }
+    return 'rgb(' + ch(16) + ',' + ch(8) + ',' + ch(0) + ')';
+  }
+  var ACCENT = (getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#B4491A').trim();
+  if (!/^#[0-9a-fA-F]{6}$/.test(ACCENT)) ACCENT = '#B4491A';
 
-  document.getElementById('btnPre').addEventListener('click', function () { state.post = false; render(); });
-  document.getElementById('btnPost').addEventListener('click', function () { state.post = true; render(); });
-  document.getElementById('btnHeight').addEventListener('click', function () { state.height = !state.height; render(); });
-  document.getElementById('year').textContent = new Date().getFullYear();
-  render();
+  /* ---------- CASE 01 · night input vs day-translated segmentation ---------- */
+  (function () {
+    var R = rng(4242), night = document.getElementById('dnNight'), day = document.getElementById('dnDay');
+    var DAYB = ['#7D8C99', '#E8742A', '#C8372A'];
+    for (var r = 0; r < 7; r++) for (var c = 0; c < 12; c++) {
+      var n = R(), ns, ds;
+      if (c === 9 + (r >= 4 ? 1 : 0)) { ns = '#0A1520'; ds = '#4E8FCB'; }
+      else if (r === 3 || c === 4) { ns = '#1A2330'; ds = '#C2C8C0'; }
+      else if (n < 0.22) { ns = '#111B1F'; ds = '#6FA35A'; }
+      else {
+        var d = Math.sqrt((c - 2) * (c - 2) + (r - 1.2) * (r - 1.2)), m = R();
+        var k = d < 1.8 ? (m < 0.55 ? 2 : 1) : d < 3.4 ? (m < 0.25 ? 2 : m < 0.6 ? 1 : 0) : (m < 0.1 ? 1 : 0);
+        ds = DAYB[k];
+        ns = R() < 0.45
+          ? 'radial-gradient(circle at ' + Math.round(25 + R() * 50) + '% ' + Math.round(25 + R() * 50) + '%, #F5C45A 0 1.5px, rgba(245,196,90,.28) 2.5px, transparent 6px), #223040'
+          : '#1E2A38';
+      }
+      var a = document.createElement('div'); a.className = 'dn-cell'; a.style.background = ns; night.appendChild(a);
+      var b = document.createElement('div'); b.className = 'dn-cell'; b.style.background = ds; day.appendChild(b);
+    }
+    var dn = document.getElementById('dn'), handle = document.getElementById('dnHandle'), range = document.getElementById('dnRange'), drag = false;
+    function set(v) {
+      v = Math.max(0, Math.min(100, v));
+      day.style.clipPath = 'inset(0 ' + (100 - v) + '% 0 0)';
+      day.style.webkitClipPath = day.style.clipPath;
+      handle.style.left = v + '%'; range.value = Math.round(v);
+    }
+    function fromEvent(e) { var rc = dn.getBoundingClientRect(); set((e.clientX - rc.left) / rc.width * 100); }
+    range.addEventListener('input', function () { set(+range.value); });
+    dn.addEventListener('pointerdown', function (e) { drag = true; try { dn.setPointerCapture(e.pointerId); } catch (_) {} fromEvent(e); });
+    dn.addEventListener('pointermove', function (e) { if (drag) fromEvent(e); });
+    ['pointerup', 'pointercancel'].forEach(function (ev) { dn.addEventListener(ev, function () { drag = false; }); });
+    set(55);
+    document.getElementById('lgDn').innerHTML = legendHTML([
+      { label: 'Building', color: '#7D8C99' }, { label: 'Damaged', color: '#E8742A' }, { label: 'Destroyed', color: '#C8372A' },
+      { label: 'Road', color: '#C2C8C0' }, { label: 'Vegetation', color: '#6FA35A' }, { label: 'Water', color: '#4E8FCB' }
+    ]);
+  })();
+
+  /* ---------- CASE 02 · flood stream + damage stream, late fusion ---------- */
+  (function () {
+    var R = rng(5150), grid = document.getElementById('hm'), cells = [];
+    var C = { flood: '#4E8FCB', intact: '#7D8C99', damaged: '#C8372A', road: '#C2C8C0', blocked: '#E9B52F', ground: '#E2E6DE', off: '#D3D8D0' };
+    for (var r = 0; r < 7; r++) for (var c = 0; c < 12; c++) {
+      var flooded = (r - 0.5 * c + R() * 1.3) > 2.4;
+      var t = (r === 2 || c === 7) ? 'road' : (R() < 0.68 ? 'bldg' : 'ground');
+      var hit = false;
+      if (t === 'bldg') hit = R() < (flooded ? 0.55 : 0.12);
+      if (t === 'road') hit = R() < (flooded ? 0.4 : 0.1);
+      var cell = document.createElement('div'); cell.className = 'hm-cell';
+      var s = document.createElement('div'); s.className = 'hm-s';
+      cell.appendChild(s); grid.appendChild(cell);
+      cells.push({ t: t, flooded: flooded, hit: hit, cell: cell, s: s });
+    }
+    var mode = 'fused', btns = document.querySelectorAll('#figHm .seg');
+    function render() {
+      var showF = mode !== 'damage', showD = mode !== 'flood';
+      var n = { flood: 0, intact: 0, damaged: 0, blocked: 0 };
+      cells.forEach(function (o) {
+        if (o.flooded) n.flood++;
+        if (o.t === 'bldg') n[o.hit ? 'damaged' : 'intact']++;
+        if (o.t === 'road' && o.hit) n.blocked++;
+        var bg = (showF && o.flooded) ? C.flood : C.ground, shape = '', w = '0', h = '0';
+        if (o.t === 'road') {
+          // priority: blocked road > flood > road
+          if (showD && o.hit) bg = C.blocked;
+          else if (!(showF && o.flooded)) bg = showD ? C.road : C.off;
+        } else if (o.t === 'bldg') {
+          w = h = '74%';
+          shape = showD ? (o.hit ? C.damaged : C.intact) : C.off;
+        }
+        o.cell.style.backgroundColor = bg;
+        o.s.style.width = w; o.s.style.height = h; o.s.style.backgroundColor = shape || 'transparent';
+      });
+      btns.forEach(function (x) { x.setAttribute('aria-pressed', String(x.getAttribute('data-v') === mode)); });
+      var items = [];
+      if (showF) items.push({ label: 'Flood', color: C.flood, count: n.flood });
+      if (showD) items.push({ label: 'Intact building', color: C.intact, count: n.intact }, { label: 'Damaged building', color: C.damaged, count: n.damaged }, { label: 'Blocked road', color: C.blocked, count: n.blocked });
+      document.getElementById('lgHm').innerHTML = legendHTML(items);
+    }
+    btns.forEach(function (x) { x.addEventListener('click', function () { mode = x.getAttribute('data-v'); render(); }); });
+    render();
+  })();
+
+  /* ---------- CASE 03 · genetic search over compact U-shaped networks ---------- */
+  (function () {
+    var R = rng(777), POP = 12, GENS = 14, TARGET = [2, 3, 4, 5];
+    function fitness(g) {
+      var err = Math.abs(g.length - TARGET.length) * 1.2;
+      for (var i = 0; i < Math.max(g.length, TARGET.length); i++) err += Math.abs((g[i] || 0) - (TARGET[i] || 0)) * 0.5;
+      return Math.max(0.05, 1 - err / 9);
+    }
+    function randomG() { var d = 3 + Math.floor(R() * 3), g = []; for (var i = 0; i < d; i++) g.push(1 + Math.floor(R() * 5)); return g; }
+    function mutate(g) {
+      g = g.slice();
+      if (R() < 0.25) { if (R() < 0.5 && g.length > 3) g.pop(); else if (g.length < 5) g.push(1 + Math.floor(R() * 5)); }
+      for (var i = 0; i < g.length; i++) if (R() < 0.3) g[i] = Math.max(1, Math.min(5, g[i] + (R() < 0.5 ? -1 : 1)));
+      return g;
+    }
+    function crossover(a, b) { var cut = 1 + Math.floor(R() * (Math.min(a.length, b.length) - 1)); return a.slice(0, cut).concat(b.slice(cut)); }
+    var gens = [], pop = [];
+    for (var i = 0; i < POP; i++) pop.push(randomG());
+    for (var gi = 0; gi < GENS; gi++) {
+      pop = pop.map(function (g) { return { g: g, f: fitness(g) }; }).sort(function (a, b) { return b.f - a.f; });
+      gens.push(pop);
+      var next = pop.slice(0, 3).map(function (x) { return x.g; });
+      while (next.length < POP) {
+        var a = pop[Math.floor(R() * 6)].g, b = pop[Math.floor(R() * 6)].g;
+        next.push(mutate(crossover(a, b)));
+      }
+      pop = next;
+    }
+    var host = document.getElementById('evo'), cards = [];
+    for (var k = 0; k < POP; k++) {
+      var card = document.createElement('div'); card.className = 'ind'; card.setAttribute('aria-hidden', 'true');
+      var bars = [];
+      for (var j = 0; j < 9; j++) { var bar = document.createElement('i'); card.appendChild(bar); bars.push(bar); }
+      var fit = document.createElement('div'); fit.className = 'fit'; var fb = document.createElement('b'); fit.appendChild(fb); card.appendChild(fit);
+      var tag = document.createElement('span'); tag.className = 'tag'; tag.textContent = 'Best'; card.appendChild(tag);
+      host.appendChild(card); cards.push({ card: card, bars: bars, fb: fb, tag: tag });
+    }
+    function draw(gi) {
+      gens[gi].forEach(function (ind, k) {
+        var o = cards[k], g = ind.g, d = g.length;
+        // encoder levels 0..d-1, bottleneck at d-1, decoder back up: 2d-1 bars
+        var seq = [];
+        for (var i = 0; i < d; i++) seq.push(i);
+        for (var i2 = d - 2; i2 >= 0; i2--) seq.push(i2);
+        var col = mix('#C9CFC8', ACCENT, Math.pow(ind.f, 1.6));
+        o.bars.forEach(function (bar, j) {
+          if (j < seq.length) {
+            var lvl = seq[j];
+            bar.style.display = 'block';
+            bar.style.marginTop = (lvl * 7) + 'px';
+            bar.style.height = (6 + g[lvl] * 6) + 'px';
+            bar.style.backgroundColor = col;
+          } else bar.style.display = 'none';
+        });
+        o.fb.style.width = Math.round(ind.f * 100) + '%';
+        o.card.classList.toggle('best', k === 0);
+        o.tag.style.display = k === 0 ? 'block' : 'none';
+      });
+      document.getElementById('evGen').textContent = gi + 1;
+    }
+    var range = document.getElementById('evRange'), play = document.getElementById('evPlay'), timer = null;
+    function set(v) { range.value = v; draw(v - 1); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } play.textContent = 'Play'; play.setAttribute('aria-pressed', 'false'); }
+    range.addEventListener('input', function () { stop(); set(+range.value); });
+    play.addEventListener('click', function () {
+      if (timer) { stop(); return; }
+      var v = +range.value >= GENS ? 1 : +range.value; set(v);
+      play.textContent = 'Pause'; play.setAttribute('aria-pressed', 'true');
+      timer = setInterval(function () { v++; if (v > GENS) { stop(); return; } set(v); }, 700);
+    });
+    set(1);
+  })();
 })();
 </script>
 </body>
